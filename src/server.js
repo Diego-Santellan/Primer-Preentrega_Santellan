@@ -21,6 +21,6 @@ app.get('*', (req, res) => {
     res.send({
         status: "error", description:`ruta ${req.url} método ${req.method} no implementado`
     })
-})
+})  
 
 module.exports = app;

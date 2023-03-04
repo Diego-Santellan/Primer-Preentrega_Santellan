@@ -9,7 +9,7 @@
     "codigo": "codigo",
     "stock": 10
   },
-  { 
+  {
     "title": "carpeta 2",
     "price": 1300,
     "thumbnail": "https://www.casaabe.com.ar/wp-content/uploads/2019/11/8205-600x600.jpg",
@@ -19,16 +19,7 @@
     "codigo": "codigo",
     "stock": 10
   },
-  {
-    "title": "carpeta3",
-    "price": 1400,
-    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_829096-MLA50278868204_062022-W.jpg",
-    "id": 3,
-    "timestamp": "timestamp",
-    "description": "descripcion",
-    "codigo": "codigo",
-    "stock": 10
-  },
+  null,
   {
     "title": "carpeta4",
     "price": 800,

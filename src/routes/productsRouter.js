@@ -46,7 +46,7 @@ productsRouter.get('/', async (req, res) =>{
 })
 
 
-productsRouter.get('/:id', async (req, res) =>{     //para esta se buscaria asi --> /api/products/5  <--suponiendo que queremos el producto con el idi numero 5
+productsRouter.post('/:id', async (req, res) =>{     //para esta se buscaria asi --> /api/products/5  <--suponiendo que queremos el producto con el idi numero 5
     // logica para enlistar por id
     res.json(await dbProducts.toList(req.params.id))//envio la informacion que me devuelva la clase containerArchive
 })
