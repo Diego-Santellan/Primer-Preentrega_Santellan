@@ -29,23 +29,32 @@ cartRouter.get('/:id/products', async (req, res) =>{       // EN BASE AL ID DE U
     res.json(await dbCart.toList(req.params.id))
 })
 
-cartRouter.post('/:id/products/:id_prod', async (req, res) =>{
+cartRouter.post('/:id/products/:id_prod', async (req, res) =>{      // EN BASE AL PRIMER ID BUSCAMOS EL CARRITO Y EN BASE AL SEGUNDO ID(ID_PROD) BUSCAMOS "X" PRODUCTO Y LO SUMAMOS AL CARRITO
     //con el id del carrito. Lo utilizamos para incorporar productos al mismo
     // logica para agregar productos
-    let carrito = await dbCart.toList(parseInt(req.params.id));
+
+    let carrito = await dbCart.toList2(parseInt(req.params.id));
+
     if (carrito.status === "error") {
         return res.status(400).send(carrito);
+    }else{
+        console.log(carrito);
     }
+
+
+    // let id = ()
     let producto = await dbArchive.toList(parseInt(req.params.id_prod));
     if (producto.status === "error") {
         return res.status(400).send(producto);
     } else {
-        let agregar = await dbCart.addProduct(parseInt(req.params.id), producto);
-        res.send(agregar);
+        console.log(producto);
+
     }
+    
+    res.json( await dbCart.update(req.params.id, producto) );
 })
 
-cartRouter.delete('/:id/products/:id_prod', async (req, res) =>{
+cartRouter.delete('/:id/products/:id_prod', async (req, res) =>{    //  EN BASE AL PRIMER ID BUSCAMOS EL CARRITO Y EN BASE AL SEGUNDO ID(ID_PROD) BUCAMOS EL PRODUCTO DENTRO DEL CARRITO Y LO ELIMINAMOS
     res.json( await dbCart.deleteProduct(req.params.id, req.params.id_prod))    //RECIVO UN PRIMER ID DE UN CARRITO Y ELIMINO UN PRODUCTO SEGUN EL SEGUNDO ID RECIVIDO 
 })
 

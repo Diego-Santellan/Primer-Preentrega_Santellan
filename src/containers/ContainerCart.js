@@ -32,11 +32,23 @@ class ContainerCart{
 
 
     //LISTAR LOS PRODUCTOS DE "X" CARRITO
-    async toList(id){
+    async toList(id){ 
         try {
             const products = await this.toListAll()
             const lookFor = products.find(prod => prod.id == id)
             return lookFor.products
+            
+        } catch (error) {
+            throw new Error(`Error al buscar el carrito: ${error}`);   
+        }
+    }
+    
+    //CAPTAR CIERTO CARRITO
+    async toList2(id){
+        try {
+            const products = await this.toListAll()
+            const lookFor = products.find(prod => prod.id == id)
+            return lookFor
             
         } catch (error) {
             throw new Error(`Error al buscar el carrito: ${error}`);   
@@ -58,7 +70,7 @@ class ContainerCart{
 
 
     //GUARDAR/AGREGAR PRODUCTO
-    async save(id, id_prod){
+    async save(id, product){
         const products = await this.toListAll();
 
         let newId
@@ -79,34 +91,34 @@ class ContainerCart{
         }
     }
 
+    async save2(carrito, producto){
+
+        console.log(carrito, producto);
+
+        carrito.push(producto)
+
+        console.log(`ASÍ QUEDARIA EL CARRITO:  `, carrito );
+
+        try {
+            await fs.writeFile(this.ruta, JSON.stringify(carrito, null, 2))
+            return newId
+        } catch (error) {
+            throw new Error(`Error al gurdar el producto: ${error}`);   
+        }
+
+    }
 
 
     //ACTUALIZAR CARRITO
-    async update(id, product){
-        // const products = await this.toListAll();
-        // const index = products.findIndex(prodt => prodt.id == id)
-        
-        // if (index == -1) {
-        //     throw new Error(`Error al actualizar no se encontro el id:${id}`);  
-            
-        // } else {
-        //     products[index] = elem
-        //     try {
-        //         await fs.writeFile(this.ruta, JSON.stringify(products, null, 2))
-                
-        //     } catch (error) {
-        //         throw new Error(`Error al actulizar el producto: ${error}`);  
-        //     }
-        // }
-        console.log(product);
+    async update(id, producto){
+
+        console.log(producto);
         console.log(id);
 
         const carts = await this.toListAll()
-        const cart = carts.find(prod => prod.id == id)
-        const index = cart.products;        //hasta aquí nos situamos en el carrito y en su array de productos
-        index.push(product);        //agregamos el producto al carrito
-        
-        
+        const cart = carts.find(cart => cart.id == id)
+        const index = cart.products;       
+        index.push(producto);        
 
         try {
             await fs.writeFile(this.ruta, JSON.stringify(carts, null, 2)) 
